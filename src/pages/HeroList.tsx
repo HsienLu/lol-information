@@ -3,88 +3,87 @@ import {Badge} from "@/components/ui/badge";
 import {useEffect, useState} from "react";
 
 function HeroList() {
-  const badgeTypeAll = [
-    "All",
+  const [heroData, setHeroNameData] = useState<Array<object>>([]);
+  const [badgeType, setBadgeType] = useState([
     "Marksman",
     "Mage",
     "Assassin",
     "Tank",
     "Fighter",
     "Support",
-  ];
-  const [badgeType, setBadgeType] = useState(["Marksman"]);
-  const [isAll, setIsAll] = useState(true);
-  const [isMarksman, setIsMarksman] = useState(false);
-  const [isMage, setIsMage] = useState(false);
-  const [isAssassin, setIsAssassin] = useState(false);
-  const [isTank, setIsTank] = useState(false);
-  const [isFighter, setIsFighter] = useState(false);
-  const [isSupport, setIsSupport] = useState(false);
-  const [heroData, setHeroNameData] = useState<Array<object>>([]);
+  ]);
   const [tagStates, setTagStates] = useState<{[key: string]: boolean}>({
-    All: false,
-    Marksman: false,
-    Mage: false,
-    Assassin: false,
-    Tank: false,
-    Fighter: false,
-    Support: false,
-    });
-    const tags = Object.keys(tagStates);
-    useEffect(() => {
+    Marksman: true,
+    Mage: true,
+    Assassin: true,
+    Tank: true,
+    Fighter: true,
+    Support: true,
+  });
+  const tags = Object.keys(tagStates);
+  useEffect(() => {
     console.log(import.meta.env.VITE_API_URL);
     fetch(`${import.meta.env.VITE_API_URL}/champion.json`)
-        .then((res) => {
+      .then((res) => {
         return res.json();
-        })
-        .then((data) => {
+      })
+      .then((data) => {
         let arrayData: object[] = Object.values(data.data);
         setHeroNameData(arrayData);
-        })
-        .catch((error) => console.error("Error", error));
-    }, []);
+      })
+      .catch((error) => console.error("Error", error));
+  }, []);
 
-    let filterTagsData = heroData.filter((v: any) =>
-    badgeType.some((tag) => v.tags.includes(tag))
-    );
-    useEffect(() => {
+  let filterTagsData = heroData.filter((v: any) =>
+    badgeType.some((tagV) => v.tags.includes(tagV))
+  );
+  useEffect(() => {
     console.log(filterTagsData);
-    }, [filterTagsData]);
-    return (
+  }, [filterTagsData]);
+  return (
     <>
-        <div className="container mx-auto">
+      <div className="container mx-auto">
         <div className="mt-5 flex gap-5">
-            {tags.map((tag) => (
+          {tags.map((tag) => (
             <Badge
-                onClick={() => {
+              onClick={() => {
                 setTagStates({
-                    ...tagStates,
-                    [tag]: !tagStates[tag],
+                  ...tagStates,
+                  [tag]: !tagStates[tag],
                 });
-                }}
-                className="hover:cursor-pointer"
-                variant={tagStates[tag] ? "default" : "outline"}
-                key={tag}
+                let newBadgeType;
+                if (badgeType.includes(tag)) {
+                  // 如果 tag 已經在 badgeType 中，則移除它
+                  newBadgeType = badgeType.filter((v) => v !== tag);
+                } else {
+                  // 如果 tag 不在 badgeType 中，則添加它
+                  newBadgeType = [...badgeType, tag];
+                }
+                setBadgeType(newBadgeType);
+              }}
+              className="hover:cursor-pointer"
+              variant={tagStates[tag] ? "default" : "outline"}
+              key={tag}
             >
-                {tag}
+              {tag}
             </Badge>
-            ))}
+          ))}
         </div>
         <div className="my-4 flex gap-12 flex-wrap justify-center">
-            {filterTagsData.map((v: any) => {
+          {filterTagsData.map((v: any) => {
             return (
-                <HeroAvatarCard
+              <HeroAvatarCard
                 key={v.id}
                 heroPicURL={`${
-                    import.meta.env.VITE_IMG_URL
+                  import.meta.env.VITE_IMG_URL
                 }/14.3.1/img/champion/${v.image.full}`}
                 heroName={`${v.name}`}
-                ></HeroAvatarCard>
+              ></HeroAvatarCard>
             );
-            })}
+          })}
         </div>
-        </div>
+      </div>
     </>
-    );
+  );
 }
 export default HeroList;

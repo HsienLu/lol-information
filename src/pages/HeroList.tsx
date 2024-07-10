@@ -42,7 +42,7 @@ function HeroList() {
   }, [filterTagsData]);
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
         <div className="mt-5 flex gap-5">
           {tags.map((tag) => (
             <Badge
@@ -69,7 +69,7 @@ function HeroList() {
             </Badge>
           ))}
         </div>
-        <div className="my-4 flex gap-12 flex-wrap justify-center">
+        <div className="my-4 flex flex-wrap gap-[1.4rem] justify-start ">
           {filterTagsData.map((v: any) => {
             return (
               <HeroAvatarCard

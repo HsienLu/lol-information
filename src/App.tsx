@@ -1,3 +1,4 @@
+
 import "./App.css";
 import Header from "./components/Header";
 import HeroDetails from "./pages/HeroDetails";
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
       <Header></Header>
-      <HeroDetails></HeroDetails>
+      <HeroList></HeroList>
     </>
   );
 }

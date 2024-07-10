@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function Header(){
     return(
         <>
@@ -6,10 +8,9 @@ function Header(){
         <h1 className="text-2xl font-bold">英雄聯盟資訊站</h1>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="text-gray-700 hover:text-gray-900">首頁</a></li>
-            <li><a href="#" className="text-gray-700 hover:text-gray-900">英雄列表</a></li>
+            <li><Link to="/" className="text-gray-700 hover:text-gray-900">首頁</Link></li>
+            <li><Link to="/hero-detail" className="text-gray-700 hover:text-gray-900">英雄列表</Link></li>
             <li><a href="#" className="text-gray-700 hover:text-gray-900">道具列表</a></li>
-            
           </ul>
         </nav>
       </div>

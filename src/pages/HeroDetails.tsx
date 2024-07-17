@@ -31,7 +31,7 @@ function HeroDetails() {
       <div className="container mx-auto">
         <section className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
-
+          {heroName && (data.data[heroName]?.title ?? 'loading')}
           </h2>
 
           <main>

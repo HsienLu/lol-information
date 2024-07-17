@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HeroList />} />
-        <Route path="/hero-detail" element={<HeroDetails />} />
+        <Route path="/hero-detail/:heroname" element={<HeroDetails />} />
       </Routes>
     </Router>
   );

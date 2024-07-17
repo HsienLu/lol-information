@@ -1,6 +1,7 @@
 import HeroAvatarCard from "@/components/HeroAvatarCard";
 import {Badge} from "@/components/ui/badge";
 import {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 
 function HeroList() {
   const [heroData, setHeroNameData] = useState<Array<object>>([]);
@@ -72,6 +73,7 @@ function HeroList() {
         <div className="my-4 flex flex-wrap gap-[1.4rem] justify-start ">
           {filterTagsData.map((v: any) => {
             return (
+              <Link to={`/hero-detail/${v.id}`}>
               <HeroAvatarCard
                 key={v.id}
                 heroPicURL={`${
@@ -79,6 +81,7 @@ function HeroList() {
                 }/14.3.1/img/champion/${v.image.full}`}
                 heroName={`${v.name}`}
               ></HeroAvatarCard>
+              </Link>
             );
           })}
         </div>

@@ -1,20 +1,24 @@
 import {HeroDetailsCarousel} from "@/components/HeroDetailsCarousel";
 import {Card} from "@/components/ui/card";
 import useFetch from "@/hooks/useFetch";
+import useGetData from "@/hooks/useGetData";
+
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
+
 function HeroDetails() {
   const testArr = [1, 2, 3, 4];
   const heroname = useParams();
   const heroName = heroname.heroname;
-  const {data, loading, error} = useFetch(
+  const {data} = useFetch(
     `${import.meta.env.VITE_API_URL}/champion/${heroName}.json`
   );
+  const newData=useGetData(data,heroName)
   useEffect(()=>{
     if(data){
       if(heroName){
 
-        console.log(data.data[heroName].title)
+        console.log(newData.title)
       }
     }
   },[data])
@@ -31,7 +35,7 @@ function HeroDetails() {
       <div className="container mx-auto">
         <section className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
-          {heroName && (data.data[heroName]?.title ?? 'loading')}
+            {newData.title}
           </h2>
 
           <main>

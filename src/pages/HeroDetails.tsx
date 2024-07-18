@@ -13,15 +13,14 @@ function HeroDetails() {
   const {data} = useFetch(
     `${import.meta.env.VITE_API_URL}/champion/${heroName}.json`
   );
-  const newData=useGetData(data,heroName)
-  useEffect(()=>{
-    if(data){
-      if(heroName){
-
-        console.log(newData.title)
+  const newData = useGetData(data, heroName);
+  useEffect(() => {
+    if (data) {
+      if (heroName) {
+        console.log(newData.title);
       }
     }
-  },[data])
+  }, [data]);
   return (
     <div
       className="fixed inset-0 bg-cover bg-center bg-no-repeat"
@@ -35,7 +34,7 @@ function HeroDetails() {
       <div className="container mx-auto">
         <section className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
-            {newData.title}
+            {newData.name}-{newData.title}
           </h2>
 
           <main>
@@ -45,27 +44,57 @@ function HeroDetails() {
               </section>
               <section className="text-group-intro w-4/6 pr-12 flex flex-col">
                 <h3>故事</h3>
-                <p className="flex-grow">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
-                  sapiente qui officia nobis ex quibusdam voluptate, vero quod
-                  atque alias! Fugit sapiente dignissimos enim fugiat
-                  necessitatibus odio quae ipsum suscipit!
-                </p>
+                <p className="flex-grow">{newData.lore}</p>
                 <h3>能力值</h3>
                 <p className="flex-grow">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Veniam quae, numquam delectus a doloremque, doloribus
-                  cupiditate est, consequatur consectetur officiis explicabo vel
-                  accusamus quisquam esse quaerat minus laboriosam? Illo, est.
+                  HP: {newData.stats.hp}
+                  <br />
+                  HP per level: {newData.stats.hpperlevel}
+                  <br />
+                  MP: {newData.stats.mp}
+                  <br />
+                  MP per level: {newData.stats.mpperlevel}
+                  <br />
+                  Move speed: {newData.stats.movespeed}
+                  <br />
+                  Armor: {newData.stats.armor}
+                  <br />
+                  Armor per level: {newData.stats.armorperlevel}
+                  <br />
+                  Spell block: {newData.stats.spellblock}
+                  <br />
+                  Spell block per level: {newData.stats.spellblockperlevel}
+                  <br />
+                  Attack range: {newData.stats.attackrange}
+                  <br />
+                  HP regen: {newData.stats.hpregen}
+                  <br />
+                  HP regen per level: {newData.stats.hpregenperlevel}
+                  <br />
+                  MP regen: {newData.stats.mpregen}
+                  <br />
+                  MP regen per level: {newData.stats.mpregenperlevel}
+                  <br />
+                  Crit: {newData.stats.crit}
+                  <br />
+                  Crit per level: {newData.stats.critperlevel}
+                  <br />
+                  Attack damage: {newData.stats.attackdamage}
+                  <br />
+                  Attack damage per level: {newData.stats.attackdamageperlevel}
+                  <br />
+                  Attack speed per level: {newData.stats.attackspeedperlevel}
+                  <br />
+                  Attack speed: {newData.stats.attackspeed}
                 </p>
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
-                    <h4>PAS</h4>
+                    <h4>{newData.passive?.name}</h4>
                     <Card className=" w-16 h-16 border-slate-950  ">
                       <img
                         src={`${
                           import.meta.env.VITE_IMG_URL
-                        }/14.3.1/img/passive/Aatrox_Passive.png`}
+                        }/14.3.1/img/passive/${newData.name}_Passive.png`}
                         alt=""
                       />
                     </Card>

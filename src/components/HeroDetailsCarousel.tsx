@@ -16,13 +16,13 @@ export function HeroDetailsCarousel({
 }) {
   useEffect(() => {
     console.log(heroName);
-    console.log(newData);
-  }, []);
+    console.log(newData.skins.length);
+  }, [newData]);
 
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent className="">
-        {Array.from({length: 5}).map((_, index) => (
+        {Array.from({length: newData.skins.length}).map((_, index) => (
           <CarouselItem className="" key={index}>
             <div className="">
               <Card className="border-0 bg-transparent">

@@ -20,7 +20,7 @@ function HeroDetails() {
         console.log(newData);
       }
     }
-  }, [data]);
+  }, []);
   return (
     <div
       className="fixed inset-0 bg-cover bg-center bg-no-repeat"

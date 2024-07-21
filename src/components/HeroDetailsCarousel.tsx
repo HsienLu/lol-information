@@ -16,7 +16,7 @@ export function HeroDetailsCarousel({
 }) {
   useEffect(() => {
     console.log(heroName);
-    console.log(newData.skins);
+    console.log(newData);
   }, []);
 
   return (

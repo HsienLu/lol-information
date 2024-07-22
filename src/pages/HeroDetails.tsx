@@ -70,7 +70,8 @@ function HeroDetails() {
                 ) : (
                   <p className="flex-grow">能力值資料不可用</p>
                 )}
-
+                <h3 className="text-xl font-semibold mb-2">遊玩提示</h3>
+                
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
                     <h4>{newData.passive?.name}</h4>

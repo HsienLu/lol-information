@@ -23,7 +23,7 @@ function HeroList() {
   });
   const tags = Object.keys(tagStates);
   useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
+    
     fetch(`${import.meta.env.VITE_API_URL}/champion.json`)
       .then((res) => {
         return res.json();

@@ -6,7 +6,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import {useEffect} from "react";
 export function HeroDetailsCarousel({
   heroName,
   newData,
@@ -14,10 +13,6 @@ export function HeroDetailsCarousel({
   heroName: string;
   newData: any;
 }) {
-  useEffect(() => {
-    console.log(heroName);
-    console.log(newData);
-  }, [newData]);
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent className="">

@@ -74,24 +74,26 @@ function HeroDetails() {
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
                     <h4>{newData.passive?.name}</h4>
-                    <Card className=" w-16 h-16 border-slate-950  ">
+                    <Card className=" w-16 h-16 border-0   overflow-hidden">
                       <img
                         src={`${
                           import.meta.env.VITE_IMG_URL
-                        }/14.3.1/img/passive/${newData.name}_Passive.png`}
+                        }/14.3.1/img/passive/${heroName}_Passive.png`}
                         alt=""
                       />
+                      {/* Aatrox_Passive */}
                     </Card>
                   </div>
-                  {testArr.map((v, i) => {
+                  {newData?.spells?.map((v:any, i:any) => {
                     return (
-                      <div className="group" key={i}>
-                        <h4>{v}</h4>
-                        <Card className=" w-16 h-16 border-slate-950">
+                      <div className="group" key={v.id}>
+                        <h4>{v.name}</h4>
+                        <Card className=" w-16 h-16 border-0  overflow-hidden">
                           <img
+                            
                             src={`${
                               import.meta.env.VITE_IMG_URL
-                            }/14.3.1/img/passive/${newData.name}_Passive.png`}
+                            }/14.3.1/img/spell/${v.id}.png`}
                             alt=""
                           />
                         </Card>

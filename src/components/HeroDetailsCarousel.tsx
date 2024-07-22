@@ -17,13 +17,14 @@ export function HeroDetailsCarousel({
   useEffect(() => {
     console.log(heroName);
     console.log(newData);
-  }, []);
-
+  }, [newData]);
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent className="">
-        {Array.from({length: 12}).map((_, index) => (
-          <CarouselItem className="" key={index}>
+          {newData?.skins?.map((v:any,i:any)=>{
+            return(
+
+          <CarouselItem className="" key={i}>
             <div className="">
               <Card className="border-0 bg-transparent">
                 <CardContent className=" flex aspect-square items-center justify-center p-1">
@@ -31,14 +32,15 @@ export function HeroDetailsCarousel({
                     className=""
                     src={`${
                       import.meta.env.VITE_IMG_URL
-                    }/img/champion/loading/Aatrox_0.jpg`}
+                    }/img/champion/loading/${heroName}_${v.num}.jpg`}
                     alt=""
                   />
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
-        ))}
+            )
+          })}
       </CarouselContent>
       <CarouselPrevious className="bg-transparent text-slate-100 border-0 -left-8" />
       <CarouselNext className="bg-transparent text-slate-100 border-0 -right-8" />

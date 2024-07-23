@@ -3,14 +3,23 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-function SkillHoverCard() {
+
+interface SkillHoverCardProps {
+  HoverComponent: React.ComponentType;
+  newData: any
+}
+
+const SkillHoverCard: React.FC<SkillHoverCardProps> = ({ HoverComponent,newData }) => {
   return (
-    <HoverCard>
-      <HoverCardTrigger>Hover</HoverCardTrigger>
-      <HoverCardContent>
-        The React Framework – created and maintained by @vercel.
+    <HoverCard openDelay={100} >
+      <HoverCardTrigger>
+        <HoverComponent />
+      </HoverCardTrigger>
+      <HoverCardContent className="w-100" align="start">
+        {newData}
       </HoverCardContent>
     </HoverCard>
   );
 }
+
 export default SkillHoverCard;

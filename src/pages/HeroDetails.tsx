@@ -1,4 +1,5 @@
 import {HeroDetailsCarousel} from "@/components/HeroDetailsCarousel";
+import SkillHoverCard from "@/components/SkillHoverCard";
 import {Card} from "@/components/ui/card";
 import useFetch from "@/hooks/useFetch";
 import useGetData from "@/hooks/useGetData";
@@ -17,6 +18,14 @@ function HeroDetails() {
   useEffect(()=>{
     console.log(newData)
   },[newData])
+  const CardComponent: React.FC = () => (
+    <Card className="w-16 h-16 border-0 overflow-hidden">
+      <img
+        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/passive/${newData?.passive?.image?.full}`}
+        alt=""
+      />
+    </Card>
+  );
   return (
     <div
       className="fixed inset-0 bg-cover bg-center bg-no-repeat"
@@ -27,6 +36,7 @@ function HeroDetails() {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
     >
+      
       <div className="container mx-auto">
         <section className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
@@ -51,6 +61,7 @@ function HeroDetails() {
                     <h3 className="text-xl font-semibold mb-2">能力值</h3>
                     {newData.stats ? (
                       <p>
+                        
                         HP: {newData.stats.hp}
                         <br />
                         HP per level: {newData.stats.hpperlevel}
@@ -93,15 +104,7 @@ function HeroDetails() {
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
                     <h4>{newData.passive?.name}</h4>
-                    <Card className=" w-16 h-16 border-0   overflow-hidden">
-                      <img
-                        src={`${
-                          import.meta.env.VITE_IMG_URL
-                        }/14.3.1/img/passive/${newData?.image?.full}`}
-                        alt=""
-                      />
-                      {/* Aatrox_Passive */}
-                    </Card>
+                    <SkillHoverCard HoverComponent={CardComponent} newData={newData.passive.description} />
                   </div>
                   {newData?.spells?.map((v: any) => {
                     return (
@@ -123,7 +126,7 @@ function HeroDetails() {
             </div>
           </main>
         </section>
-      </div>
+      S</div>
     </div>
   );
 }

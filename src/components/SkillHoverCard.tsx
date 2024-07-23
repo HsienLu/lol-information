@@ -15,7 +15,7 @@ const SkillHoverCard: React.FC<SkillHoverCardProps> = ({ HoverComponent,newData 
       <HoverCardTrigger>
         <HoverComponent />
       </HoverCardTrigger>
-      <HoverCardContent className="w-100" align="start">
+      <HoverCardContent className="w-1/2" align="start">
         {newData}
       </HoverCardContent>
     </HoverCard>

@@ -17,12 +17,20 @@ function HeroDetails() {
   useEffect(() => {
     console.log(newData);
   }, [newData]);
-  const CardComponent: React.FC = () => (
-    <Card className="w-16 h-16 border-0 overflow-hidden">
+  const CardComponentPassive: React.FC = () => (
+    <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
       <img
         src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/passive/${
           newData?.passive?.image?.full
         }`}
+        alt=""
+      />
+    </Card>
+  );
+  const SpellCardComponent: React.FC<{id: string}> = ({id}) => (
+    <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
+      <img
+        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/spell/${id}.png`}
         alt=""
       />
     </Card>
@@ -38,7 +46,7 @@ function HeroDetails() {
       }}
     >
       <div className="container mx-auto">
-        <section className="g-glossy">
+        <div className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
             {newData.name}-{newData.title}
           </h2>
@@ -51,7 +59,7 @@ function HeroDetails() {
                   newData={newData ?? "defaultNewData"}
                 ></HeroDetailsCarousel>
               </section>
-              <section className="text-group-intro text-white w-4/6 pr-12 flex flex-col">
+              <section className="text-group-intro text-white w-4/6 pr-12 flex flex-col gap-8">
                 <div className="text-box-story flex-grow">
                   <h3 className="text-xl font-semibold mb-2">故事</h3>
                   <p>{newData.lore}</p>
@@ -102,24 +110,24 @@ function HeroDetails() {
                 </main>
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
-                    <h4>{newData.passive?.name}</h4>
+                    <h4 className="mb-3 text-center">
+                      天賦: {newData.passive?.name}
+                    </h4>
                     <SkillHoverCard
-                      HoverComponent={CardComponent}
+                      HoverComponent={CardComponentPassive}
                       newData={newData?.passive?.description}
                     />
                   </div>
                   {newData?.spells?.map((v: any) => {
                     return (
                       <div className="group" key={v.id}>
-                        <h4>{v.name}</h4>
-                        <Card className=" w-16 h-16 border-0  overflow-hidden">
-                          <img
-                            src={`${
-                              import.meta.env.VITE_IMG_URL
-                            }/14.3.1/img/spell/${v.id}.png`}
-                            alt=""
-                          />
-                        </Card>
+                        <h4 className="mb-3 text-center">{v.name}</h4>
+                        <SkillHoverCard
+                          HoverComponent={() => (
+                            <SpellCardComponent id={v.id} />
+                          )}
+                          newData={v.description}
+                        />
                       </div>
                     );
                   })}
@@ -127,8 +135,7 @@ function HeroDetails() {
               </section>
             </div>
           </main>
-        </section>
-        S
+        </div>
       </div>
     </div>
   );

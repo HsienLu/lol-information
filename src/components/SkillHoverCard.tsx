@@ -20,9 +20,7 @@ const SkillHoverCard: React.FC<SkillHoverCardProps> = ({
       <HoverCardTrigger>
         <HoverComponent />
       </HoverCardTrigger>
-      <HoverCardContent className="w-1/2" align="start">
-        {sanitizedContent}
-      </HoverCardContent>
+      <HoverCardContent align="start">{sanitizedContent}</HoverCardContent>
     </HoverCard>
   );
 };

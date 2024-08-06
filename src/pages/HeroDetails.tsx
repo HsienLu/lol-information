@@ -8,20 +8,21 @@ import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
 function HeroDetails() {
-
   const heroname = useParams();
   const heroName: string | undefined = heroname.heroname;
   const {data} = useFetch(
     `${import.meta.env.VITE_API_URL}/champion/${heroName}.json`
   );
   const newData = useGetData(data, heroName);
-  useEffect(()=>{
-    console.log(newData)
-  },[newData])
+  useEffect(() => {
+    console.log(newData);
+  }, [newData]);
   const CardComponent: React.FC = () => (
     <Card className="w-16 h-16 border-0 overflow-hidden">
       <img
-        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/passive/${newData?.passive?.image?.full}`}
+        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/passive/${
+          newData?.passive?.image?.full
+        }`}
         alt=""
       />
     </Card>
@@ -36,7 +37,6 @@ function HeroDetails() {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
     >
-      
       <div className="container mx-auto">
         <section className="g-glossy">
           <h2 className="text-center leading-normal text-3xl font-bold text-white py-5">
@@ -57,11 +57,10 @@ function HeroDetails() {
                   <p>{newData.lore}</p>
                 </div>
                 <main className="group-main flex justify-between flex-grow">
-                  <div className="group-ability ">
+                  <div className="group-ability w-1/5">
                     <h3 className="text-xl font-semibold mb-2">能力值</h3>
                     {newData.stats ? (
                       <p>
-                        
                         HP: {newData.stats.hp}
                         <br />
                         HP per level: {newData.stats.hpperlevel}
@@ -82,7 +81,7 @@ function HeroDetails() {
                       <p>能力值資料不可用</p>
                     )}
                   </div>
-                  <div className="group-hint">
+                  <div className="group-hint w-4/5">
                     <h3 className="text-xl font-semibold mb-2">遊玩提示</h3>
                     <section className="text-group-intro text-white flex flex-col">
                       <h3 className="text-lg font-semibold ">友方提示</h3>
@@ -104,7 +103,10 @@ function HeroDetails() {
                 <section className="text-group-spell flex justify-around">
                   <div className="group">
                     <h4>{newData.passive?.name}</h4>
-                    <SkillHoverCard HoverComponent={CardComponent} newData={newData.passive.description} />
+                    <SkillHoverCard
+                      HoverComponent={CardComponent}
+                      newData={newData?.passive?.description}
+                    />
                   </div>
                   {newData?.spells?.map((v: any) => {
                     return (
@@ -126,7 +128,8 @@ function HeroDetails() {
             </div>
           </main>
         </section>
-      S</div>
+        S
+      </div>
     </div>
   );
 }

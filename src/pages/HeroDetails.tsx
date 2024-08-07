@@ -126,6 +126,7 @@ function HeroDetails() {
                           HoverComponent={() => (
                             <SpellCardComponent id={v.id} />
                           )}
+                          // 要用tooltip還是description要在思考
                           newData={v.description}
                         />
                       </div>

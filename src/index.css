@@ -95,7 +95,155 @@
 
   border-radius: 0.5rem;
 }
+/* 特殊表情顏色 */
+physicalDamage {
+  color: #FF6347; /* Tomato */
+}
 
-physicaldamage {
-  color: brown;
+status {
+  color: #4682B4; /* SteelBlue */
+}
+
+recast {
+  color: #8A2BE2; /* BlueViolet */
+}
+
+magicDamage {
+  color: #7FFF00; /* Chartreuse */
+}
+
+spellPassive {
+  color: #DC143C; /* Crimson */
+}
+
+lifeSteal {
+  color: #00FFFF; /* Cyan */
+}
+
+keywordMajor {
+  color: #FF8C00; /* DarkOrange */
+}
+
+spellActive {
+  color: #8B0000; /* DarkRed */
+}
+
+speed {
+  color: #006400; /* DarkGreen */
+}
+
+scaleAD {
+  color: #BDB76B; /* DarkKhaki */
+}
+
+healing {
+  color: #8FBC8F; /* DarkSeaGreen */
+}
+
+trueDamage {
+  color: #B8860B; /* DarkGoldenRod */
+}
+
+keywordStealth {
+  color: #556B2F; /* DarkOliveGreen */
+}
+
+toggle {
+  color: #FF1493; /* DeepPink */
+}
+
+shield {
+  color: #00BFFF; /* DeepSkyBlue */
+}
+
+spellName {
+  color: #696969; /* DimGray */
+}
+
+attackSpeed {
+  color: #1E90FF; /* DodgerBlue */
+}
+
+scaleHealth {
+  color: #B22222; /* FireBrick */
+}
+
+scaleArmor {
+  color: #FFFAF0; /* FloralWhite */
+}
+
+scaleMR {
+  color: #228B22; /* ForestGreen */
+}
+
+rules {
+  color: #FF00FF; /* Fuchsia */
+}
+
+charge {
+  color: #DCDCDC; /* Gainsboro */
+}
+
+release {
+  color: #F8F8FF; /* GhostWhite */
+}
+
+scaleMana {
+  color: #FFD700; /* Gold */
+}
+
+OnHit {
+  color: #DAA520; /* GoldenRod */
+}
+
+passive {
+  color: #808080; /* Gray */
+}
+
+active {
+  color: #008000; /* Green */
+}
+
+scaleLevel {
+  color: #ADFF2F; /* GreenYellow */
+}
+
+scaleAP {
+  color: #F0FFF0; /* HoneyDew */
+}
+
+attention {
+  color: #FF69B4; /* HotPink */
+}
+
+evolve {
+  color: #CD5C5C; /* IndianRed */
+}
+
+tap {
+  color: #4B0082; /* Indigo */
+}
+
+hold {
+  color: #FFFFF0; /* Ivory */
+}
+
+danger {
+  color: #F0E68C; /* Khaki */
+}
+
+slow {
+  color: #E6E6FA; /* Lavender */
+}
+
+specialRules {
+  color: #FFF0F5; /* LavenderBlush */
+}
+
+keywordName {
+  color: #7CFC00; /* LawnGreen */
+}
+
+factionIonia1 {
+  color: #FFFACD; /* LemonChiffon */
 }

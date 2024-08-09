@@ -27,16 +27,8 @@ function HeroList() {
   const [version, setVersion] = useState<string>("");
   useEffect(() => {
     console.log("newVersion", newVersion);
-    fetch('https://ddragon.leagueoflegends.com/api/versions.json').then((res)=>{
-      return res.json()
-    }).then((data)=>{
-      const latestVersion = data[0]
-      setVersion(version)
-      return latestVersion
-    }).then((latestVersion)=>{
-
-
-      fetch(`${import.meta.env.VITE_API_URL}/${latestVersion}/data/zh_TW/champion.json`)
+    console.log(`${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`)
+      fetch(`${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`)
         .then((res) => {
           return res.json();
         })
@@ -46,8 +38,7 @@ function HeroList() {
         })
         .catch((error) => console.error("Error", error));
       
-    })
-  }, []);
+    },[]);
 
   let filterTagsData = heroData.filter((v: any) =>
     badgeType.some((tagV) => v.tags.includes(tagV))

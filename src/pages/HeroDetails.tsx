@@ -3,17 +3,52 @@ import SkillHoverCard from "@/components/SkillHoverCard";
 import {Card} from "@/components/ui/card";
 import useFetch from "@/hooks/useFetch";
 import useGetData from "@/hooks/useGetData";
-
+import {useState} from "react";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
 function HeroDetails() {
   const heroname = useParams();
   const heroName: string | undefined = heroname.heroname;
-  const {data} = useFetch(
-    `${import.meta.env.VITE_API_URL}/14.3.1/data/zh_TW/champion/${heroName}.json`
-  );
-  const newData = useGetData(data, heroName);
+  const [version, setVersion] = useState('');
+  const [championData, setChampionData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // 首先請求版本號的API
+    fetch('https://ddragon.leagueoflegends.com/api/versions.json')
+      .then((response) => response.json())
+      .then((data) => {
+        const latestVersion = data[0]; // 假設第一個元素是最新的版本號
+        setVersion(latestVersion);
+        return latestVersion;
+      })
+      .then((latestVersion) => {
+        // 使用版本號來請求英雄資料的API
+        fetch(`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/zh_TW/champion/${heroName}.json`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setChampionData(data);
+            setLoading(false);
+          })
+          .catch((error) => {
+            setError(error);
+            setLoading(false);
+          });
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [heroName]);
+  
+  const newData = useGetData(championData, heroName);
   useEffect(() => {
     console.log(newData);
   }, [newData]);

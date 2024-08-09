@@ -22,17 +22,28 @@ function HeroList() {
     Support: true,
   });
   const tags = Object.keys(tagStates);
+  const [version, setVersion] = useState<string>("");
   useEffect(() => {
-    
-    fetch(`${import.meta.env.VITE_API_URL}/14.3.1/data/zh_TW/champion.json`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        let arrayData: object[] = Object.values(data.data);
-        setHeroNameData(arrayData);
-      })
-      .catch((error) => console.error("Error", error));
+    fetch('https://ddragon.leagueoflegends.com/api/versions.json').then((res)=>{
+      return res.json()
+    }).then((data)=>{
+      const latestVersion = data[0]
+      setVersion(version)
+      return latestVersion
+    }).then((latestVersion)=>{
+
+
+      fetch(`${import.meta.env.VITE_API_URL}/${latestVersion}/data/zh_TW/champion.json`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          let arrayData: object[] = Object.values(data.data);
+          setHeroNameData(arrayData);
+        })
+        .catch((error) => console.error("Error", error));
+      
+    })
   }, []);
 
   let filterTagsData = heroData.filter((v: any) =>

@@ -1,6 +1,7 @@
 import HeroAvatarCard from "@/components/HeroAvatarCard";
 import {Badge} from "@/components/ui/badge";
-import {useEffect, useState} from "react";
+import { VersionContext } from "@/context/versionContext";
+import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 function HeroList() {
@@ -22,8 +23,10 @@ function HeroList() {
     Support: true,
   });
   const tags = Object.keys(tagStates);
+  const newVersion = useContext(VersionContext);
   const [version, setVersion] = useState<string>("");
   useEffect(() => {
+    console.log("newVersion", newVersion);
     fetch('https://ddragon.leagueoflegends.com/api/versions.json').then((res)=>{
       return res.json()
     }).then((data)=>{
@@ -88,7 +91,7 @@ function HeroList() {
                 <HeroAvatarCard
                   heroPicURL={`${
                     import.meta.env.VITE_IMG_URL
-                  }/14.3.1/img/champion/${v.image.full}`}
+                  }/14.15.1/img/champion/${v.image.full}`}
                   heroName={`${v.name}`}
                 ></HeroAvatarCard>
               </Link>

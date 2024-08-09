@@ -15,7 +15,7 @@ function Header() {
               </li>
               <li>
                 <Link
-                  to="/hero-detail"
+                  to="/hero-list"
                   className="text-gray-100 hover:text-gray-300"
                 >
                   英雄列表

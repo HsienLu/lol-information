@@ -55,7 +55,7 @@ function HeroDetails() {
   const CardComponentPassive: React.FC = () => (
     <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
       <img
-        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/passive/${
+        src={`${import.meta.env.VITE_IMG_URL}/14.15.1/img/passive/${
           newData?.passive?.image?.full
         }`}
         alt=""
@@ -65,7 +65,7 @@ function HeroDetails() {
   const SpellCardComponent: React.FC<{id: string}> = ({id}) => (
     <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
       <img
-        src={`${import.meta.env.VITE_IMG_URL}/14.3.1/img/spell/${id}.png`}
+        src={`${import.meta.env.VITE_IMG_URL}/14.15.1/img/spell/${id}.png`}
         alt=""
       />
     </Card>

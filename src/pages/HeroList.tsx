@@ -24,7 +24,7 @@ function HeroList() {
   const tags = Object.keys(tagStates);
   useEffect(() => {
     
-    fetch(`${import.meta.env.VITE_API_URL}/champion.json`)
+    fetch(`${import.meta.env.VITE_API_URL}/14.3.1/data/zh_TW/champion.json`)
       .then((res) => {
         return res.json();
       })

@@ -11,7 +11,7 @@ function HeroDetails() {
   const heroname = useParams();
   const heroName: string | undefined = heroname.heroname;
   const {data} = useFetch(
-    `${import.meta.env.VITE_API_URL}/champion/${heroName}.json`
+    `${import.meta.env.VITE_API_URL}/14.3.1/data/zh_TW/champion/${heroName}.json`
   );
   const newData = useGetData(data, heroName);
   useEffect(() => {

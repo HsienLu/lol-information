@@ -10,26 +10,28 @@ import {useParams} from "react-router-dom";
 function HeroDetails() {
   const heroname = useParams();
   const heroName: string | undefined = heroname.heroname;
-  const [version, setVersion] = useState('');
+  const [version, setVersion] = useState("");
   const [championData, setChampionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     // 首先請求版本號的API
-    fetch('https://ddragon.leagueoflegends.com/api/versions.json')
+    fetch("https://ddragon.leagueoflegends.com/api/versions.json")
       .then((response) => response.json())
       .then((data) => {
-        const latestVersion = data[0]; // 假設第一個元素是最新的版本號
+        const latestVersion = data[0];
         setVersion(latestVersion);
         return latestVersion;
       })
-      .then((latestVersion) => {
+      .then((latestVersion = import.meta.env.VITE_VERSION) => {
         // 使用版本號來請求英雄資料的API
-        fetch(`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/zh_TW/champion/${heroName}.json`)
+        fetch(
+          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/zh_TW/champion/${heroName}.json`
+        )
           .then((response) => {
             if (!response.ok) {
-              throw new Error('Network response was not ok');
+              throw new Error("Network response was not ok");
             }
             return response.json();
           })
@@ -47,7 +49,7 @@ function HeroDetails() {
         setLoading(false);
       });
   }, [heroName]);
-  
+
   const newData = useGetData(championData, heroName);
   useEffect(() => {
     console.log(newData);

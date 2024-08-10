@@ -1,6 +1,6 @@
 import HeroAvatarCard from "@/components/HeroAvatarCard";
 import {Badge} from "@/components/ui/badge";
-import { VersionContext } from "@/context/versionContext";
+import {VersionContext} from "@/context/versionContext";
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -23,22 +23,20 @@ function HeroList() {
     Support: true,
   });
   const tags = Object.keys(tagStates);
-  const newVersion = useContext(VersionContext);
-  const [version, setVersion] = useState<string>("");
+  const newVersion = useContext(VersionContext) ?? import.meta.env.VITE_VERSION;
   useEffect(() => {
-    console.log("newVersion", newVersion);
-    console.log(`${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`)
-      fetch(`${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          let arrayData: object[] = Object.values(data.data);
-          setHeroNameData(arrayData);
-        })
-        .catch((error) => console.error("Error", error));
-      
-    },[]);
+    fetch(
+      `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        let arrayData: object[] = Object.values(data.data);
+        setHeroNameData(arrayData);
+      })
+      .catch((error) => console.error("Error", error));
+  }, [newVersion]);
 
   let filterTagsData = heroData.filter((v: any) =>
     badgeType.some((tagV) => v.tags.includes(tagV))

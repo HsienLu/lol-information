@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import HeroDetails from "./pages/HeroDetails";
 import HeroList from "./pages/HeroList";
+import ItemList from "./pages/ItemList";
 import {VersionContext} from "./context/versionContext";
 import {useEffect, useState} from "react";
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/hero-list" element={<HeroList />} />
           <Route path="/hero-detail/:heroname" element={<HeroDetails />} />
+          <Route path="/item-list" element={<ItemList />} />
         </Routes>
       </Router>
     </VersionContext.Provider>

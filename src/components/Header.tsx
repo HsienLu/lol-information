@@ -22,9 +22,9 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-100 hover:text-gray-300">
+                <Link to="/item-list" className="text-gray-100 hover:text-gray-300">
                   道具列表
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

@@ -3,7 +3,7 @@ import {Badge} from "@/components/ui/badge";
 import {VersionContext} from "@/context/versionContext";
 import {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-
+import useCookie from "@/hooks/useCookie";
 function HeroList() {
   const [heroData, setHeroNameData] = useState<Array<object>>([]);
   const [badgeType, setBadgeType] = useState([
@@ -23,7 +23,8 @@ function HeroList() {
     Support: true,
   });
   const tags = Object.keys(tagStates);
-  const newVersion = useContext(VersionContext) ?? import.meta.env.VITE_VERSION;
+  const lolInformationVersionByCookie = useCookie("lol-information-version");
+  const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
   useEffect(() => {
     fetch(
       `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`
@@ -79,8 +80,8 @@ function HeroList() {
               <Link key={v.id} to={`/hero-detail/${v.id}`}>
                 <HeroAvatarCard
                   heroPicURL={`${
-                    import.meta.env.VITE_IMG_URL
-                  }/14.15.1/img/champion/${v.image.full}`}
+                    import.meta.env.VITE_API_URL
+                  }/${newVersion}/img/champion/${v.image.full}`}
                   heroName={`${v.name}`}
                 ></HeroAvatarCard>
               </Link>

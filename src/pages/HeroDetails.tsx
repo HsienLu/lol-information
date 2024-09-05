@@ -1,33 +1,26 @@
 import {HeroDetailsCarousel} from "@/components/HeroDetailsCarousel";
 import SkillHoverCard from "@/components/SkillHoverCard";
 import {Card} from "@/components/ui/card";
+import { VersionContext } from "@/context/versionContext";
+import useCookie from "@/hooks/useCookie";
 import useFetch from "@/hooks/useFetch";
 import useGetData from "@/hooks/useGetData";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 
 function HeroDetails() {
   const heroname = useParams();
   const heroName: string | undefined = heroname.heroname;
-  const [version, setVersion] = useState("");
+  const [version, setVersion] = useState<string | null>("");
   const [championData, setChampionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const lolInformationVersionByCookie = useCookie("lol-information-version");
+  const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
   useEffect(() => {
-    // 首先請求版本號的API
-    fetch("https://ddragon.leagueoflegends.com/api/versions.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const latestVersion = data[0];
-        setVersion(latestVersion);
-        return latestVersion;
-      })
-      .then((latestVersion = import.meta.env.VITE_VERSION) => {
-        // 使用版本號來請求英雄資料的API
         fetch(
-          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/zh_TW/champion/${heroName}.json`
+          `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion/${heroName}.json`
         )
           .then((response) => {
             if (!response.ok) {
@@ -43,21 +36,13 @@ function HeroDetails() {
             setError(error);
             setLoading(false);
           });
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, [heroName]);
-
+  }, [newVersion]);
   const newData = useGetData(championData, heroName);
-  useEffect(() => {
-    console.log(newData);
-  }, [newData]);
+
   const CardComponentPassive: React.FC = () => (
     <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
       <img
-        src={`${import.meta.env.VITE_IMG_URL}/14.15.1/img/passive/${
+        src={`${import.meta.env.VITE_API_URL}/${newVersion}/img/passive/${
           newData?.passive?.image?.full
         }`}
         alt=""
@@ -67,7 +52,7 @@ function HeroDetails() {
   const SpellCardComponent: React.FC<{id: string}> = ({id}) => (
     <Card className="w-16 h-16 border-0 overflow-hidden mx-auto">
       <img
-        src={`${import.meta.env.VITE_IMG_URL}/14.15.1/img/spell/${id}.png`}
+        src={`${import.meta.env.VITE_API_URL}/${newVersion}/img/spell/${id}.png`}
         alt=""
       />
     </Card>
@@ -77,7 +62,7 @@ function HeroDetails() {
       className="fixed inset-0 bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${
-          import.meta.env.VITE_IMG_URL
+          import.meta.env.VITE_API_URL
         }/img/champion/centered/${heroName}_0.jpg)`,
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}

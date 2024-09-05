@@ -12,6 +12,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setVersion(data[0]);
+        document.cookie = `lol-information-version=${data[0]}; path=/`;
+
       });
   }, []);
   return (

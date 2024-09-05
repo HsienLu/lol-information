@@ -13,6 +13,7 @@ export function HeroDetailsCarousel({
   heroName: string;
   newData: any;
 }) {
+
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent className="">
@@ -26,7 +27,7 @@ export function HeroDetailsCarousel({
                   <img
                     className=""
                     src={`${
-                      import.meta.env.VITE_IMG_URL
+                      import.meta.env.VITE_API_URL
                     }/img/champion/loading/${heroName}_${v.num}.jpg`}
                     alt=""
                   />

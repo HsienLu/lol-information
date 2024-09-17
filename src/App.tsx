@@ -6,6 +6,7 @@ import HeroList from "./pages/HeroList";
 import ItemList from "./pages/ItemList";
 import {VersionContext} from "./context/versionContext";
 import {useEffect, useState} from "react";
+import HomePage from "./pages/HomePage";
 function App() {
   const [version, setVersion] = useState("");
   useEffect(() => {
@@ -14,7 +15,6 @@ function App() {
       .then((data) => {
         setVersion(data[0]);
         document.cookie = `lol-information-version=${data[0]}; path=/`;
-
       });
   }, []);
   return (
@@ -22,6 +22,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/hero-list" element={<HeroList />} />
           <Route path="/hero-detail/:heroname" element={<HeroDetails />} />
           <Route path="/item-list" element={<ItemList />} />

@@ -1,4 +1,40 @@
+import heroSection from '/images/HomePage/hero-section.webp'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import {VersionContext} from "@/context/versionContext";
+import useCookie from "@/hooks/useCookie";
+import {useContext, useEffect, useState} from "react";
+import { HeroData  as HeroDataTypes } from '../types/HeroTypes';
+import { Link } from 'react-router-dom';
+
 function HomePage() {
+  const [randomHeroData,setRandomHeroData]=useState<HeroDataTypes[]>([])
+  const lolInformationVersionByCookie = useCookie("lol-information-version");
+  const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
+    // 隨機選擇五個項目
+    const getRandomItems = (arr: HeroDataTypes[], num: number): HeroDataTypes[] => {
+      const shuffled = arr.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, num);
+    };
+  useEffect(() => {
+
+    fetch(
+      `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        let arrayData: HeroDataTypes[] = Object.values(data.data);
+        let filterArrayHeroData=getRandomItems(arrayData,5)
+        setRandomHeroData(filterArrayHeroData);
+        console.log(filterArrayHeroData)
+      })
+      .catch((error) => console.error("Error", error));
+  }, [newVersion]);
+
+
+
   return (
     <>
       {/* 主要內容 */}
@@ -6,19 +42,20 @@ function HomePage() {
         {/* 英雄橫幅 */}
         <div className="relative mb-12">
           <img
-            src="/api/placeholder/1200/400"
+            src={heroSection}
             alt="Heroes Banner"
             className="w-full h-64 object-cover rounded-lg"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent rounded-lg"></div>
           <div className="absolute bottom-4 left-4">
-            <h1 className="text-4xl font-bold mb-2">一起闖進大世界</h1>
-            <p className="text-lg">季中賽事火熱進行中</p>
+            <h1 className="text-4xl font-bold mb-2 text-gray-400">一起闖進大世界</h1>
+            <p className="text-lg text-gray-400">世界賽事火熱進行中</p>
           </div>
         </div>
 
         {/* 搜索欄 */}
         <div className="relative mb-12">
+        <FontAwesomeIcon className='text-gray-300 absolute top-4 left-0' icon={faCoffee} />
           <input
             type="text"
             placeholder="搜索英雄、物品或新聞..."
@@ -27,13 +64,14 @@ function HomePage() {
         </div>
 
         {/* 遊戲模式選擇 */}
-        <div className="grid grid-cols-3 gap-4 mb-12">
-          {["召喚峽谷", "嚎哭深淵", "團隊戰術家"].map((mode) => (
+        <div className="flex gap-4 mb-12 justify-evenly">
+          {["召喚峽谷", "咆嘯深淵"].map((mode, i) => (
             <div
               key={mode}
-              className="bg-gray-800 bg-opacity-50 p-4 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
+              className="flex-none w-2/4 h-96 bg-gray-800 bg-opacity-50 p-4 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
+              style={{ backgroundImage: `url(/images/HomePage/map1${i + 1}.png)`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
-              <h3 className="text-lg font-semibold">{mode}</h3>
+              <h3 className="text-lg font-semibold bg-gray-800 bg-opacity-50 rounded-lg">{mode}</h3>
             </div>
           ))}
         </div>
@@ -42,18 +80,22 @@ function HomePage() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-4">熱門英雄</h2>
           <div className="grid grid-cols-5 gap-4">
-            {[...Array(5)].map((_, i) => (
+            {randomHeroData.map((v, i) => (
+              <Link key={v.id} to={`/hero-detail/${v.id}`}>
               <div
                 key={i}
-                className="bg-gray-800 bg-opacity-50 p-2 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
+                className="bg-gray-800 bg-opacity-50 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
               >
                 <img
-                  src={`/api/placeholder/100/${100 + i}`}
-                  alt={`Hero ${i + 1}`}
-                  className="w-full h-24 object-cover rounded mb-2"
+                  src={`${
+                    import.meta.env.VITE_API_URL
+                  }/img/champion/centered/${v.id}_0.jpg`}
+                  alt={`${v.name}`}
+                  className="object-cover rounded-t-lg"
                 />
-                <p className="text-sm">英雄 {i + 1}</p>
+                <p className="text-sm pt-2 pb-2">{v.name}</p>
               </div>
+              </Link>
             ))}
           </div>
         </div>

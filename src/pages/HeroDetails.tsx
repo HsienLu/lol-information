@@ -19,6 +19,7 @@ function HeroDetails() {
   const lolInformationVersionByCookie = useCookie("lol-information-version");
   const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
   useEffect(() => {
+    
         fetch(
           `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion/${heroName}.json`
         )

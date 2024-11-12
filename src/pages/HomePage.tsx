@@ -1,23 +1,26 @@
-import heroSection from '/images/HomePage/hero-section.webp'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import heroSection from "/images/HomePage/hero-section.webp";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCoffee} from "@fortawesome/free-solid-svg-icons";
 import {VersionContext} from "@/context/versionContext";
 import useCookie from "@/hooks/useCookie";
 import {useContext, useEffect, useState} from "react";
-import { HeroData  as HeroDataTypes } from '../types/HeroTypes';
-import { Link } from 'react-router-dom';
+import {HeroData as HeroDataTypes} from "../types/HeroTypes";
+import {Link} from "react-router-dom";
 
 function HomePage() {
-  const [randomHeroData,setRandomHeroData]=useState<HeroDataTypes[]>([])
+  const [randomHeroData, setRandomHeroData] = useState<HeroDataTypes[]>([]);
   const lolInformationVersionByCookie = useCookie("lol-information-version");
-  const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
-    // 隨機選擇五個項目
-    const getRandomItems = (arr: HeroDataTypes[], num: number): HeroDataTypes[] => {
-      const shuffled = arr.sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, num);
-    };
+  const newVersion =
+    useContext(VersionContext) ?? lolInformationVersionByCookie;
+  // 隨機選擇五個項目
+  const getRandomItems = (
+    arr: HeroDataTypes[],
+    num: number
+  ): HeroDataTypes[] => {
+    const shuffled = arr.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
+  };
   useEffect(() => {
-
     fetch(
       `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/champion.json`
     )
@@ -26,14 +29,12 @@ function HomePage() {
       })
       .then((data) => {
         let arrayData: HeroDataTypes[] = Object.values(data.data);
-        let filterArrayHeroData=getRandomItems(arrayData,5)
+        let filterArrayHeroData = getRandomItems(arrayData, 5);
         setRandomHeroData(filterArrayHeroData);
-        console.log(filterArrayHeroData)
+        console.log(filterArrayHeroData);
       })
       .catch((error) => console.error("Error", error));
   }, [newVersion]);
-
-
 
   return (
     <>
@@ -48,14 +49,19 @@ function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent rounded-lg"></div>
           <div className="absolute bottom-4 left-4">
-            <h1 className="text-4xl font-bold mb-2 text-gray-400">一起闖進大世界</h1>
+            <h1 className="text-4xl font-bold mb-2 text-gray-400">
+              一起闖進大世界
+            </h1>
             <p className="text-lg text-gray-400">世界賽事火熱進行中</p>
           </div>
         </div>
 
         {/* 搜索欄 */}
         <div className="relative mb-12">
-        <FontAwesomeIcon className='text-gray-300 absolute top-4 left-0' icon={faCoffee} />
+          <FontAwesomeIcon
+            className="text-gray-300 absolute top-4 left-0"
+            icon={faCoffee}
+          />
           <input
             type="text"
             placeholder="搜索英雄、物品或新聞..."
@@ -69,9 +75,15 @@ function HomePage() {
             <div
               key={mode}
               className="flex-none w-2/4 h-96 bg-gray-800 bg-opacity-50 p-4 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
-              style={{ backgroundImage: `url(/images/HomePage/map1${i + 1}.png)`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{
+                backgroundImage: `url(/images/HomePage/map1${i + 1}.png)`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
             >
-              <h3 className="text-lg font-semibold bg-gray-800 bg-opacity-50 rounded-lg">{mode}</h3>
+              <h3 className="text-lg font-semibold bg-gray-800 bg-opacity-50 rounded-lg">
+                {mode}
+              </h3>
             </div>
           ))}
         </div>
@@ -82,26 +94,26 @@ function HomePage() {
           <div className="grid grid-cols-5 gap-4">
             {randomHeroData.map((v, i) => (
               <Link key={v.id} to={`/hero-detail/${v.id}`}>
-              <div
-                key={i}
-                className="bg-gray-800 bg-opacity-50 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
-              >
-                <img
-                  src={`${
-                    import.meta.env.VITE_API_URL
-                  }/img/champion/centered/${v.id}_0.jpg`}
-                  alt={`${v.name}`}
-                  className="object-cover rounded-t-lg"
-                />
-                <p className="text-sm pt-2 pb-2">{v.name}</p>
-              </div>
+                <div
+                  key={i}
+                  className="bg-gray-800 bg-opacity-50 rounded-lg text-center hover:bg-opacity-75 transition cursor-pointer"
+                >
+                  <img
+                    src={`${
+                      import.meta.env.VITE_API_URL
+                    }/img/champion/centered/${v.id}_0.jpg`}
+                    alt={`${v.name}`}
+                    className="object-cover rounded-t-lg"
+                  />
+                  <p className="text-sm pt-2 pb-2">{v.name}</p>
+                </div>
               </Link>
             ))}
           </div>
         </div>
 
         {/* 最新資訊 */}
-        <div className="grid grid-cols-2 gap-8">
+        {/* <div className="grid grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold mb-4">最新消息</h2>
             <div className="space-y-4">
@@ -130,7 +142,7 @@ function HomePage() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
       <footer className="bg-black bg-opacity-50 mt-12 py-6">
         <div className="container mx-auto text-center text-sm text-gray-400">

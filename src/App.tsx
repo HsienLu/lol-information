@@ -7,6 +7,7 @@ import ItemList from "./pages/ItemList";
 import {VersionContext} from "./context/versionContext";
 import {useEffect, useState} from "react";
 import HomePage from "./pages/HomePage";
+import ItemDetail from "./pages/ItemDetails";
 function App() {
   const [version, setVersion] = useState("");
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/hero-list" element={<HeroList />} />
           <Route path="/hero-detail/:heroname" element={<HeroDetails />} />
           <Route path="/item-list" element={<ItemList />} />
+          <Route path="/item-details/:itemname" element={<ItemDetail />} />
         </Routes>
       </Router>
     </VersionContext.Provider>

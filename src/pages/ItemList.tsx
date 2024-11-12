@@ -37,50 +37,48 @@ function HeroList() {
     "Stealth",
     "Tenacity",
     "Trinket",
-    "Vision"
-  ]
-  );
+    "Vision",
+  ]);
   const [tagStates, setTagStates] = useState<{[key: string]: boolean}>({
-    "AbilityHaste": true,
-    "Active": true,
-    "Armor": true,
-    "ArmorPenetration": true,
-    "AttackSpeed": true,
-    "Aura": true,
-    "Boots": true,
-    "Consumable": true,
-    "CooldownReduction": true,
-    "CriticalStrike": true,
-    "Damage": true,
-    "GoldPer": true,
-    "Health": true,
-    "HealthRegen": true,
-    "Jungle": true,
-    "Lane": true,
-    "LifeSteal": true,
-    "MagicPenetration": true,
-    "MagicResist": true,
-    "Mana": true,
-    "ManaRegen": true,
-    "NonbootsMovement": true,
-    "OnHit": true,
-    "Slow": true,
-    "SpellBlock": true,
-    "SpellDamage": true,
-    "SpellVamp": true,
-    "Stealth": true,
-    "Tenacity": true,
-    "Trinket": true,
-    "Vision": true
-  }
-  );
+    AbilityHaste: true,
+    Active: true,
+    Armor: true,
+    ArmorPenetration: true,
+    AttackSpeed: true,
+    Aura: true,
+    Boots: true,
+    Consumable: true,
+    CooldownReduction: true,
+    CriticalStrike: true,
+    Damage: true,
+    GoldPer: true,
+    Health: true,
+    HealthRegen: true,
+    Jungle: true,
+    Lane: true,
+    LifeSteal: true,
+    MagicPenetration: true,
+    MagicResist: true,
+    Mana: true,
+    ManaRegen: true,
+    NonbootsMovement: true,
+    OnHit: true,
+    Slow: true,
+    SpellBlock: true,
+    SpellDamage: true,
+    SpellVamp: true,
+    Stealth: true,
+    Tenacity: true,
+    Trinket: true,
+    Vision: true,
+  });
   const tags = Object.keys(tagStates);
   const lolInformationVersionByCookie = useCookie("lol-information-version");
-  const newVersion = useContext(VersionContext) ?? lolInformationVersionByCookie ;
+  const newVersion =
+    useContext(VersionContext) ?? lolInformationVersionByCookie;
   useEffect(() => {
-    fetch(
-      `${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/item.json`
-    )
+    console.log(newVersion);
+    fetch(`${import.meta.env.VITE_API_URL}/${newVersion}/data/zh_TW/item.json`)
       .then((res) => {
         return res.json();
       })
@@ -127,9 +125,9 @@ function HeroList() {
           ))}
         </div>
         <div className="my-4 flex flex-wrap gap-[1.4rem] justify-start ">
-          {filterTagsData.map((v: any) => {
+          {filterTagsData.map((v: any, index: number) => {
             return (
-              <Link key={v.id} to={`/hero-detail/${v.id}`}>
+              <Link key={index} to={`/item-details/${v.id}`}>
                 <HeroAvatarCard
                   heroPicURL={`${
                     import.meta.env.VITE_API_URL
